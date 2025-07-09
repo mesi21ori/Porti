@@ -1,7 +1,6 @@
 "use client"
 
 import React from "react"
-
 import { motion, AnimatePresence } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef, useState } from "react"
@@ -19,109 +18,7 @@ import {
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-
-const projects = [
-  {
-    title: "Moteregna Delivery System",
-    description:
-      "A cross-platform delivery coordination system supporting both web and mobile interfaces with dashboards for Super Admin, Admin, and Motorists.",
-    technologies: ["Next.js", "Tailwind CSS", "TypeScript", "Flutter", "PostgreSQL"],
-    status: "Current",
-    role: "Full Stack Developer",
-    category: "Web & Mobile",
-    highlights: ["Real-time tracking", "Multi-user dashboards", "Cross-platform"],
-    liveUrl: "https://history-preservation.vercel.app",
-    sourceUrl: "https://github.com/yourusername/ethiopian-history",
-  },
-  {
-    title: "Ethiopian History Preservation System",
-    description:
-      "A secure platform for institutions to register and upload historical materials including text, photos, audio, and video content.",
-    technologies: ["Next.js", "Tailwind CSS", "ShadCN", "Framer Motion", "TypeScript"],
-    status: "Completed",
-    role: "Full Stack Developer",
-    category: "Web Application",
-    highlights: ["Secure uploads", "Multi-media support", "Institution management"],
-    liveUrl: "https://history-preservation.vercel.app",
-    sourceUrl: "https://github.com/yourusername/ethiopian-history",
-  },
-  {
-    title: "Gibe Market - E-Commerce Platform",
-    description:
-      "An online marketplace enabling suppliers to showcase and sell products directly to customers with intuitive dashboards.",
-    technologies: ["Next.js", "Tailwind CSS", "Material UI", "TypeScript"],
-    status: "Current",
-    role: "Frontend Developer",
-    category: "E-Commerce",
-    highlights: ["Supplier dashboards", "Product management", "Order tracking"],
-    liveUrl: "https://history-preservation.vercel.app",
-    sourceUrl: "https://github.com/yourusername/ethiopian-history",
-  },
-  {
-    title: "mYFeel - AI Study Platform",
-    description:
-      "AI-powered platform converting educational documents into interactive, collaborative learning resources with quiz generation.",
-    technologies: ["Next.js 14", "Python Flask", "Google Gemini AI", "PyMuPDF"],
-    status: "Current",
-    role: "Backend & AI Integration",
-    category: "AI Platform",
-    highlights: ["AI integration", "Document parsing", "Quiz generation"],
-    liveUrl: "https://history-preservation.vercel.app",
-    sourceUrl: "https://github.com/yourusername/ethiopian-history",
-  },
-  {
-    title: "Lemi Kura Reporting System",
-    description:
-      "Secure reporting system with verifiable submissions, timestamped data, audit trails, and real-time admin monitoring.",
-    technologies: ["Node.js", "Express.js", "React.js", "MySQL", "Sequelize"],
-    status: "Completed",
-    role: "Full Stack Developer",
-    category: "Government System",
-    highlights: ["Security focused", "Audit trails", "Real-time monitoring"],
-    liveUrl: "https://history-preservation.vercel.app",
-    sourceUrl: "https://github.com/yourusername/ethiopian-history",
-  },
-  {
-    title: "Mesi - Amharic Learning App",
-    description:
-      "AI-powered Amharic language learning app with Fidel practice, speech recognition, and interactive writing modules.",
-    technologies: ["Next.js", "Tailwind CSS", "ShadCN", "TypeScript"],
-    status: "Completed",
-    role: "Frontend Developer",
-    category: "Educational App",
-    highlights: ["Speech recognition", "Interactive learning", "Cultural preservation"],
-    liveUrl: "https://history-preservation.vercel.app",
-    sourceUrl: "https://github.com/yourusername/ethiopian-history",
-  },
-  {
-    title: "Development for Peace Organization Website",
-    description:
-      "A multilingual, user-friendly website built to communicate the organization's mission and showcase global projects.",
-    technologies: ["React.js", "Tailwind CSS", "Framer Motion"],
-    status: "Completed",
-    role: "Frontend Developer",
-    category: "NGO Website",
-    highlights: [
-      "Responsive and accessible UI",
-      "Integrated lightweight CMS for easy content updates",
-      "Optimized for multilingual support and accessibility",
-    ],
-    liveUrl: "https://history-preservation.vercel.app",
-    sourceUrl: "https://github.com/yourusername/ethiopian-history",
-  },
-  {
-    title: "Mesicv - Personal Portfolio",
-    description:
-      "A modern, responsive portfolio showcasing my skills, projects, and professional journey with interactive animations.",
-    technologies: ["Next.js", "Tailwind CSS", "Framer Motion", "TypeScript"],
-    status: "Current",
-    role: "Full Stack Developer",
-    category: "Portfolio",
-    highlights: ["Interactive animations", "Responsive design", "SEO optimized"],
-    liveUrl: "https://history-preservation.vercel.app",
-    sourceUrl: "https://github.com/yourusername/ethiopian-history",
-  },
-]
+import { PROJECTS } from "@/lib/constants"
 
 export function Projects() {
   const ref = useRef(null)
@@ -132,24 +29,24 @@ export function Projects() {
 
   const nextProject = () => {
     setDirection(1)
-    setCurrentIndex((prev) => (prev + 1) % projects.length)
+    setCurrentIndex((prev) => (prev + 1) % PROJECTS.length)
   }
 
   const prevProject = () => {
     setDirection(-1)
-    setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length)
+    setCurrentIndex((prev) => (prev - 1 + PROJECTS.length) % PROJECTS.length)
   }
 
   React.useEffect(() => {
     if (!isAutoPlay) return
     const interval = setInterval(() => {
       setDirection(1)
-      setCurrentIndex((prev) => (prev + 1) % projects.length)
-    }, 8000)
+      setCurrentIndex((prev) => (prev + 1) % PROJECTS.length)
+    }, 10000)
     return () => clearInterval(interval)
   }, [isAutoPlay])
 
-  const currentProject = projects[currentIndex]
+  const currentProject = PROJECTS[currentIndex]
 
   return (
     <section id="projects" className="py-32 relative overflow-hidden" ref={ref}>
@@ -167,7 +64,6 @@ export function Projects() {
             ease: "easeInOut",
           }}
         />
-
         <motion.div
           className="absolute bottom-1/4 right-1/4 w-48 h-48 bg-navy/5"
           animate={{
@@ -244,7 +140,6 @@ export function Projects() {
               </div>
             </motion.div>
           </motion.div>
-
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -267,7 +162,6 @@ export function Projects() {
               Projects
             </motion.span>
           </motion.h2>
-
           <motion.div
             initial={{ scaleX: 0 }}
             animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
@@ -284,6 +178,7 @@ export function Projects() {
             <span className="text-sm font-medium">{isAutoPlay ? "Pause" : "Play"} Slideshow</span>
           </motion.button>
         </motion.div>
+
         <div className="relative mb-16">
           <AnimatePresence mode="wait" custom={direction}>
             <motion.div
@@ -326,7 +221,6 @@ export function Projects() {
                 }}
                 className="absolute -inset-4 bg-gradient-to-r from-navy/20 via-taupe/20 to-navy/20 rounded-[4rem] blur-xl"
               />
-
               <div className="relative bg-cream/90 backdrop-blur-xl border-2 border-taupe/40 rounded-[3rem] overflow-hidden shadow-2xl">
                 <div className="grid lg:grid-cols-2 gap-0">
                   <div className="relative h-80 lg:h-96 bg-gradient-to-br from-taupe/20 via-navy/10 to-taupe/30 flex items-center justify-center overflow-hidden">
@@ -341,27 +235,42 @@ export function Projects() {
                       }}
                       className="absolute inset-0 opacity-20"
                       style={{
-                        backgroundImage: `radial-gradient(circle at 2px 2px, ${`#123458`} 1px, transparent 0)`,
+                        backgroundImage: `radial-gradient(circle at 2px 2px, ${"#123458"} 1px, transparent 0)`,
                         backgroundSize: "30px 30px",
                       }}
                     />
                     <motion.div
-                      animate={{
-                        scale: [1, 1.1, 1],
-                        rotate: [0, 5, -5, 0],
-                        z: [0, 50, 0],
-                      }}
-                      transition={{
-                        duration: 6,
-                        repeat: Number.POSITIVE_INFINITY,
-                      }}
-                      className="text-6xl lg:text-8xl font-black text-navy/20 relative z-10"
-                      style={{
-                        textShadow: "0 10px 20px rgba(18, 52, 88, 0.1)",
-                        transform: "perspective(1000px) rotateX(15deg)",
-                      }}
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ duration: 0.6 }}
+                      className="relative w-full h-full"
                     >
-                      {currentProject.title.split(" ")[0]}
+                      <motion.img
+                        src={currentProject.bgImageUrl}
+                        alt={currentProject.title}
+                        className="w-full h-full object-cover rounded-2xl shadow-2xl"
+                        animate={{
+                          scale: [1, 1.05, 1],
+                        }}
+                        transition={{
+                          duration: 8,
+                          repeat: Number.POSITIVE_INFINITY,
+                          ease: "easeInOut",
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-navy/60 via-transparent to-transparent rounded-2xl" />
+
+                      <motion.div
+                        initial={{ y: 20, opacity: 0 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ delay: 0.3 }}
+                        className="absolute bottom-6 left-6 right-6"
+                      >
+                        <h4 className="text-2xl lg:text-3xl font-black text-cream mb-2 drop-shadow-lg">
+                          {currentProject.title}
+                        </h4>
+                        <p className="text-cream/90 text-sm drop-shadow-md">{currentProject.category}</p>
+                      </motion.div>
                     </motion.div>
                     <motion.div
                       animate={{
@@ -373,22 +282,9 @@ export function Projects() {
                         duration: 8,
                         repeat: Number.POSITIVE_INFINITY,
                       }}
-                      className="absolute top-8 right-8 w-16 h-16 bg-navy/20 rounded-2xl"
+                      className="absolute top-8 right-8 w-16 h-16 bg-cream/20 backdrop-blur-sm rounded-2xl border border-cream/30"
                     />
-
-                    <motion.div
-                      animate={{
-                        rotate: [0, -360],
-                        scale: [1, 1.3, 1],
-                      }}
-                      transition={{
-                        duration: 12,
-                        repeat: Number.POSITIVE_INFINITY,
-                        ease: "linear",
-                      }}
-                      className="absolute bottom-8 left-8 w-12 h-12 border-4 border-taupe/40 rounded-full"
-                    />
-
+                   
                     <motion.div
                       animate={{
                         y: [0, -15, 0],
@@ -398,30 +294,31 @@ export function Projects() {
                         duration: 5,
                         repeat: Number.POSITIVE_INFINITY,
                       }}
-                      className="absolute top-1/2 left-8 w-8 h-8 bg-taupe/30"
+                      className="absolute top-1/2 left-8 w-8 h-8 bg-cream/30"
                       style={{ clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)" }}
                     />
+
                     {currentProject.status === "Current" && (
                       <motion.div
                         animate={{
                           scale: [1, 1.1, 1],
                           opacity: [0.8, 1, 0.8],
                           boxShadow: [
-                            "0 0 0px rgba(18, 52, 88, 0)",
-                            "0 0 20px rgba(18, 52, 88, 0.5)",
-                            "0 0 0px rgba(18, 52, 88, 0)",
+                            "0 0 0px rgba(245, 242, 237, 0)",
+                            "0 0 20px rgba(245, 242, 237, 0.5)",
+                            "0 0 0px rgba(245, 242, 237, 0)",
                           ],
                         }}
                         transition={{
                           duration: 2,
                           repeat: Number.POSITIVE_INFINITY,
                         }}
-                        className="absolute top-6 left-6 bg-navy text-cream px-6 py-3 rounded-full text-sm font-bold shadow-lg"
+                        className="absolute top-6 left-6 bg-cream text-navy px-6 py-3 rounded-full text-sm font-bold shadow-lg backdrop-blur-sm"
                       >
                         <motion.span
                           animate={{ opacity: [1, 0.5, 1] }}
                           transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY }}
-                          className="inline-block w-2 h-2 bg-cream rounded-full mr-2"
+                          className="inline-block w-2 h-2 bg-green-500 rounded-full mr-2"
                         />
                         Live Project
                       </motion.div>
@@ -452,7 +349,6 @@ export function Projects() {
                           </Badge>
                         </motion.div>
                       </div>
-
                       <motion.h3
                         animate={{
                           textShadow: [
@@ -536,24 +432,15 @@ export function Projects() {
                     </div>
                     <div className="flex gap-4 pt-4">
                       <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
-                        {/* View Project */}
-                        <a
-                          href={currentProject.liveUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
+                        <a href={currentProject.liveUrl} target="_blank" rel="noopener noreferrer">
                           <Button className="bg-navy hover:bg-navy/90 text-cream px-6 py-3 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
                             <ExternalLink className="mr-2" size={18} />
                             View Project
                           </Button>
                         </a>
-
-                        {/* Source Code */}
-                        <a
-                          href={currentProject.sourceUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                        >
+                      </motion.div>
+                      <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
+                        <a href={currentProject.sourceUrl} target="_blank" rel="noopener noreferrer">
                           <Button
                             variant="outline"
                             className="border-2 border-taupe text-navy hover:bg-taupe hover:text-cream px-6 py-3 rounded-2xl font-semibold bg-cream/50 shadow-lg hover:shadow-xl transition-all duration-300"
@@ -573,22 +460,22 @@ export function Projects() {
             onClick={prevProject}
             whileHover={{ scale: 1.15, x: -8, rotateY: -15 }}
             whileTap={{ scale: 0.9 }}
-            className="absolute left-4 top-1/2 transform -translate-y-1/2 w-16 h-16 bg-cream/90 backdrop-blur-sm border-2 border-taupe/40 rounded-full flex items-center justify-center text-navy hover:border-navy/60 transition-colors shadow-xl hover:shadow-2xl"
+            className="absolute left-4 top-3/4 transform -translate-y-1/2 w-16 h-16 bg-cream/90 backdrop-blur-sm border-2 border-taupe/40 rounded-full flex items-center justify-center text-navy hover:border-navy/60 transition-colors shadow-xl hover:shadow-2xl"
           >
             <ChevronLeft size={28} />
           </motion.button>
-
           <motion.button
             onClick={nextProject}
             whileHover={{ scale: 1.15, x: 8, rotateY: 15 }}
             whileTap={{ scale: 0.9 }}
-            className="absolute right-4 top-1/2 transform -translate-y-1/2 w-16 h-16 bg-cream/90 backdrop-blur-sm border-2 border-taupe/40 rounded-full flex items-center justify-center text-navy hover:border-navy/60 transition-colors shadow-xl hover:shadow-2xl"
+            className="absolute right-4 top-3/4 transform -translate-y-1/2 w-16 h-16 bg-cream/90 backdrop-blur-sm border-2 border-taupe/40 rounded-full flex items-center justify-center text-navy hover:border-navy/60 transition-colors shadow-xl hover:shadow-2xl"
           >
             <ChevronRight size={28} />
           </motion.button>
         </div>
+
         <div className="flex justify-center gap-4 mb-16">
-          {projects.map((_, index) => (
+          {PROJECTS.map((_, index) => (
             <motion.button
               key={index}
               onClick={() => {
@@ -600,8 +487,9 @@ export function Projects() {
               className={`relative transition-all duration-300 ${index === currentIndex ? "w-12 h-4" : "w-4 h-4"}`}
             >
               <div
-                className={`w-full h-full rounded-full transition-all duration-300 ${index === currentIndex ? "bg-navy" : "bg-taupe/40 hover:bg-taupe/60"
-                  }`}
+                className={`w-full h-full rounded-full transition-all duration-300 ${
+                  index === currentIndex ? "bg-navy" : "bg-taupe/40 hover:bg-taupe/60"
+                }`}
               />
               {index === currentIndex && (
                 <motion.div
@@ -613,13 +501,14 @@ export function Projects() {
             </motion.button>
           ))}
         </div>
+
         <motion.div
           initial={{ opacity: 0, y: 100 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
         >
-          {projects.map((project, index) => (
+          {PROJECTS.map((project, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 50, rotateX: -30 }}
@@ -635,22 +524,22 @@ export function Projects() {
                 setCurrentIndex(index)
                 setIsAutoPlay(false)
               }}
-              className={`cursor-pointer bg-cream/60 backdrop-blur-sm p-6 rounded-2xl border-2 transition-all duration-500 group relative overflow-hidden ${index === currentIndex ? "border-navy shadow-2xl scale-105" : "border-taupe/30 hover:border-taupe/60"
-                }`}
+              className={`cursor-pointer bg-cream/60 backdrop-blur-sm p-6 rounded-2xl border-2 transition-all duration-500 group relative overflow-hidden ${
+                index === currentIndex ? "border-navy shadow-2xl scale-105" : "border-taupe/30 hover:border-taupe/60"
+              }`}
             >
               <motion.div
                 animate={
                   index === currentIndex
                     ? {
-                      opacity: [0, 0.1, 0],
-                      scale: [1, 1.2, 1],
-                    }
+                        opacity: [0, 0.1, 0],
+                        scale: [1, 1.2, 1],
+                      }
                     : {}
                 }
                 transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
                 className="absolute inset-0 bg-gradient-to-br from-navy/10 to-taupe/10"
               />
-
               <div className="relative z-10">
                 <div className="flex items-center gap-3 mb-3">
                   <motion.div
@@ -663,9 +552,7 @@ export function Projects() {
                     {project.title.length > 20 ? project.title.substring(0, 20) + "..." : project.title}
                   </h4>
                 </div>
-
                 <p className="text-navy/70 text-sm mb-4 line-clamp-2">{project.description}</p>
-
                 <div className="flex flex-wrap gap-1">
                   {project.technologies.slice(0, 3).map((tech, techIndex) => (
                     <motion.div key={techIndex} whileHover={{ scale: 1.1 }}>

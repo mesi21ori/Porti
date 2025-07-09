@@ -1,65 +1,25 @@
 "use client"
 
 import type React from "react"
-
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef, useState } from "react"
-import { Mail, Phone, MapPin, Github, Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react"
+import { Mail, Phone, Github, Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-
-const contactInfo = [
-  {
-    icon: Mail,
-    label: "Email",
-    value: "Mesiori21@gmail.com",
-    href: "mailto:Mesiori21@gmail.com",
-  },
-  {
-    icon: Phone,
-    label: "Phone",
-    value: "(+251) 975336956",
-    href: "tel:+251975336956",
-  },
-  {
-    icon: MapPin,
-    label: "Location",
-    value: "Addis Ababa, Ethiopia",
-    href: "#",
-  },
-  {
-    icon: Github,
-    label: "GitHub",
-    value: "github.com/mesi21ori",
-    href: "https://github.com/mesi21ori/",
-  },
-]
-
-interface FormData {
-  name: string
-  email: string
-  subject: string
-  message: string
-}
-
-interface FormStatus {
-  type: "idle" | "loading" | "success" | "error"
-  message: string
-}
+import { CONTACT_INFO } from "@/lib/constants"
+import type { FormData, FormStatus } from "@/types"
 
 export function Contact() {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-100px" })
-
   const [formData, setFormData] = useState<FormData>({
     name: "",
     email: "",
     subject: "",
     message: "",
   })
-
   const [status, setStatus] = useState<FormStatus>({
     type: "idle",
     message: "",
@@ -73,45 +33,39 @@ export function Contact() {
     }))
   }
 
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault()
-
-  if (!formData.name || !formData.email || !formData.subject || !formData.message) {
-    setStatus({ type: "error", message: "Please fill in all fields" })
-    return
-  }
-
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-  if (!emailRegex.test(formData.email)) {
-    setStatus({ type: "error", message: "Please enter a valid email address" })
-    return
-  }
-
-  setStatus({ type: "loading", message: "Sending your message..." })
-
-  try {
-    const response = await fetch("/api/send-email-alternative", {   
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    })
-
-    if (response.ok) {
-      setStatus({ type: "success", message: "Message sent successfully! I'll get back to you soon." })
-      setFormData({ name: "", email: "", subject: "", message: "" })
-    } else {
-      throw new Error("Server error")
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+      setStatus({ type: "error", message: "Please fill in all fields" })
+      return
     }
-  } catch (error) {
-    setStatus({
-      type: "error",
-      message: "Something went wrong. Please try again later or email me directly.",
-    })
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(formData.email)) {
+      setStatus({ type: "error", message: "Please enter a valid email address" })
+      return
+    }
+    setStatus({ type: "loading", message: "Sending your message..." })
+    try {
+      const response = await fetch("/api/send-email-alternative", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+      if (response.ok) {
+        setStatus({ type: "success", message: "Message sent successfully! I'll get back to you soon." })
+        setFormData({ name: "", email: "", subject: "", message: "" })
+      } else {
+        throw new Error("Server error")
+      }
+    } catch (error) {
+      setStatus({
+        type: "error",
+        message: "Something went wrong. Please try again later or email me directly.",
+      })
+    }
   }
-}
-
 
   return (
     <section id="contact" className="py-32 relative overflow-hidden" ref={ref}>
@@ -164,7 +118,6 @@ const handleSubmit = async (e: React.FormEvent) => {
               className="absolute -inset-3 border-2 border-navy/30 rounded-3xl"
             />
           </motion.div>
-
           <h2 className="text-5xl lg:text-7xl font-black text-navy mb-6">
             Let's Work{" "}
             <motion.span
@@ -175,14 +128,12 @@ const handleSubmit = async (e: React.FormEvent) => {
               Together
             </motion.span>
           </h2>
-
           <motion.div
             initial={{ scaleX: 0 }}
             animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
             transition={{ delay: 0.6, duration: 1.2 }}
             className="h-2 w-32 bg-gradient-to-r from-navy via-taupe to-navy mx-auto rounded-full mb-8"
           />
-
           <p className="text-xl text-navy/70 max-w-3xl mx-auto leading-relaxed">
             Ready to bring your ideas to life? Let's discuss how we can create something amazing together.
           </p>
@@ -202,9 +153,8 @@ const handleSubmit = async (e: React.FormEvent) => {
                 technology and development.
               </p>
             </div>
-
             <div className="space-y-6">
-              {contactInfo.map((item, index) => (
+              {CONTACT_INFO.map((item, index) => (
                 <motion.a
                   key={item.label}
                   href={item.href}
@@ -255,6 +205,7 @@ const handleSubmit = async (e: React.FormEvent) => {
               </div>
             </motion.div>
           </motion.div>
+
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
@@ -262,7 +213,6 @@ const handleSubmit = async (e: React.FormEvent) => {
             className="bg-cream/70 backdrop-blur-xl p-8 rounded-3xl border border-taupe/20"
           >
             <h3 className="text-2xl font-bold text-navy mb-6">Send a Message</h3>
-
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid md:grid-cols-2 gap-4">
                 <div>
@@ -289,13 +239,12 @@ const handleSubmit = async (e: React.FormEvent) => {
                     type="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    placeholder="your.email@example.com"
+                    placeholder="Mesiori21@gmail.com"
                     className="bg-white/50 border-taupe/30 focus:border-navy"
                     required
                   />
                 </div>
               </div>
-
               <div>
                 <label htmlFor="subject" className="block text-sm font-medium text-navy mb-2">
                   Subject *
@@ -310,7 +259,6 @@ const handleSubmit = async (e: React.FormEvent) => {
                   required
                 />
               </div>
-
               <div>
                 <label htmlFor="message" className="block text-sm font-medium text-navy mb-2">
                   Message *
@@ -321,7 +269,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                   rows={6}
                   value={formData.message}
                   onChange={handleInputChange}
-                  placeholder="Tell me about your project or just say hello!"
+                  placeholder="Tell me .............."
                   className="bg-white/50 border-taupe/30 focus:border-navy resize-none"
                   required
                 />
@@ -344,7 +292,6 @@ const handleSubmit = async (e: React.FormEvent) => {
                   <span className="font-medium">{status.message}</span>
                 </motion.div>
               )}
-
               <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
                 <Button
                   type="submit"
@@ -389,6 +336,7 @@ const handleSubmit = async (e: React.FormEvent) => {
             </div>
           </motion.div>
         </div>
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}

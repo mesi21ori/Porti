@@ -3,8 +3,7 @@
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef } from "react"
-import { Heart, Coffee, Rocket, Zap } from "lucide-react"
-import { User } from "lucide-react"
+import { Heart, Coffee, Rocket, Zap, User } from "lucide-react"
 
 const stats = [
   { number: "15+", label: "Projects Completed", icon: Rocket },
@@ -43,19 +42,16 @@ export function About() {
           >
             <User className="text-navy" size={32} />
           </motion.div>
-
           <h2 className="text-5xl lg:text-7xl font-black text-navy mb-6">
             About
             <span className="bg-gradient-to-r from-taupe to-navy bg-clip-text text-transparent"> Me</span>
           </h2>
-
           <motion.div
             initial={{ width: 0 }}
             animate={isInView ? { width: "120px" } : { width: 0 }}
             transition={{ delay: 0.5, duration: 1 }}
             className="h-2 bg-gradient-to-r from-navy to-taupe mx-auto rounded-full mb-8"
           />
-
           <p className="text-xl text-navy/70 max-w-3xl mx-auto leading-relaxed">
             Passionate developer crafting digital experiences that make a difference
           </p>
@@ -70,14 +66,12 @@ export function About() {
           >
             <div className="bg-white/60 backdrop-blur-xl p-8 rounded-3xl border border-taupe/30 shadow-xl">
               <h3 className="text-3xl font-bold text-navy mb-6">My Journey</h3>
-
               <div className="space-y-6 text-navy/80 leading-relaxed">
                 <p className="text-lg">
                   I'm a <strong>full-stack developer</strong> with an unwavering passion for building clean, fast, and
                   user-friendly web applications. My journey spans from crafting intuitive user interfaces to
                   architecting robust backend systems.
                 </p>
-
                 <p className="text-lg">
                   With hands-on experience in{" "}
                   <strong>
@@ -85,13 +79,11 @@ export function About() {
                   </strong>
                   , I've developed a comprehensive understanding of modern web development challenges and solutions.
                 </p>
-
                 <p className="text-lg">
                   Whether working remotely or on-site, I excel at <strong>independent task management</strong> while
                   being a collaborative and supportive team member. I believe in the power of clean code, innovative
                   thinking, and continuous learning.
                 </p>
-
                 <motion.div
                   whileHover={{ scale: 1.02 }}
                   className="bg-gradient-to-r from-navy/10 to-taupe/10 p-6 rounded-2xl border-l-4 border-navy"
@@ -104,6 +96,7 @@ export function About() {
               </div>
             </div>
           </motion.div>
+
           <motion.div
             initial={{ opacity: 0, x: 100 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 100 }}

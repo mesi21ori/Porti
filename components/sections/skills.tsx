@@ -1,61 +1,11 @@
 "use client"
 
 import React from "react"
-
 import { motion } from "framer-motion"
 import { useInView } from "framer-motion"
 import { useRef, useState } from "react"
-import { Code, Database, Globe, Wrench, Award, Trophy, Star, Zap, ChevronRight } from "lucide-react"
-
-const skillCategories = [
-  {
-    icon: Code,
-    title: "Programming Languages",
-    skills: [
-      { name: "JavaScript", level: 95 },
-      { name: "TypeScript", level: 90 },
-      { name: "Java", level: 85 },
-      { name: "C++", level: 80 },
-      { name: "Python", level: 75 },
-    ],
-  },
-  {
-    icon: Globe,
-    title: "Web Development",
-    skills: [
-      { name: "React", level: 95 },
-      { name: "Next.js", level: 90 },
-      { name: "HTML/CSS", level: 95 },
-      { name: "Tailwind CSS", level: 90 },
-      { name: "Node.js", level: 85 },
-      { name: "ShadCN UI", level: 88 },
-      { name: "Material UI", level: 88 },
-    ],
-  },
-  {
-    icon: Database,
-    title: "Databases & ORM",
-    skills: [
-      { name: "PostgreSQL", level: 85 },
-      { name: "MySQL", level: 80 },
-      { name: "Prisma", level: 85 },
-      { name: "Drizzle ORM", level: 75 },
-    ],
-  },
-  {
-    icon: Wrench,
-    title: "Tools & Technologies",
-    skills: [
-      { name: "Git/GitHub", level: 90 },
-      { name: "Postman", level: 85 },
-      { name: "Flutter", level: 80 },
-      { name: "Framer Motion", level: 85 },
-      { name: "Swagger", level: 75 },
-    ],
-  },
-]
-
-
+import { Code, ChevronRight } from "lucide-react"
+import { SKILL_CATEGORIES } from "@/lib/constants"
 
 export function Skills() {
   const ref = useRef(null)
@@ -106,7 +56,6 @@ export function Skills() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
@@ -135,7 +84,6 @@ export function Skills() {
               className="absolute -inset-3 border-2 border-navy/30 rounded-3xl"
             />
           </motion.div>
-
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
@@ -151,7 +99,6 @@ export function Skills() {
               Skills
             </motion.span>
           </motion.h2>
-
           <motion.div
             initial={{ scaleX: 0 }}
             animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
@@ -159,15 +106,13 @@ export function Skills() {
             className="h-1 w-36 bg-gradient-to-r from-navy via-taupe to-navy mx-auto rounded-full mb-8"
           />
         </motion.div>
-
-        {/* Skills Categories Selector */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
           transition={{ duration: 0.8, delay: 0.3 }}
           className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16"
         >
-          {skillCategories.map((category, index) => (
+          {SKILL_CATEGORIES.map((category, index) => (
             <motion.div
               key={category.title}
               whileHover={{ scale: 1.05, y: -10 }}
@@ -175,19 +120,16 @@ export function Skills() {
               onClick={() => setActiveCategory(index)}
               className={`cursor-pointer relative group ${activeCategory === index ? "scale-105" : ""}`}
             >
-              {/* Animated background */}
               <motion.div
                 className="absolute inset-0 bg-taupe/20 rounded-3xl"
                 animate={activeCategory === index ? { scale: [1, 1.05, 1] } : {}}
                 transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY }}
               />
-
               <div
                 className={`relative bg-cream/80 backdrop-blur-xl p-8 rounded-3xl border-2 transition-all duration-500 ${
                   activeCategory === index ? "border-navy shadow-2xl" : "border-taupe/40 hover:border-taupe/60"
                 }`}
               >
-                {/* Floating icon */}
                 <motion.div
                   animate={
                     activeCategory === index
@@ -204,7 +146,6 @@ export function Skills() {
                 >
                   <category.icon size={28} />
                 </motion.div>
-
                 <h3
                   className={`text-xl font-bold mb-4 transition-colors ${
                     activeCategory === index ? "text-navy" : "text-navy/80"
@@ -212,7 +153,6 @@ export function Skills() {
                 >
                   {category.title}
                 </h3>
-
                 <div className="flex items-center justify-between">
                   <span className="text-navy/70 text-sm">{category.skills.length} Technologies</span>
                   <ChevronRight
@@ -224,8 +164,6 @@ export function Skills() {
             </motion.div>
           ))}
         </motion.div>
-
-        {/* Active Skills Display */}
         <motion.div
           key={activeCategory}
           initial={{ opacity: 0, y: 50, scale: 0.95 }}
@@ -239,16 +177,15 @@ export function Skills() {
               transition={{ duration: 4, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
               className="w-12 h-12 bg-navy rounded-2xl flex items-center justify-center"
             >
-              {React.createElement(skillCategories[activeCategory].icon, {
+              {React.createElement(SKILL_CATEGORIES[activeCategory].icon, {
                 className: "text-cream",
                 size: 24,
               })}
             </motion.div>
-            <h3 className="text-3xl font-black text-navy">{skillCategories[activeCategory].title}</h3>
+            <h3 className="text-3xl font-black text-navy">{SKILL_CATEGORIES[activeCategory].title}</h3>
           </div>
-
           <div className="grid md:grid-cols-2 gap-8">
-            {skillCategories[activeCategory].skills.map((skill, index) => (
+            {SKILL_CATEGORIES[activeCategory].skills.map((skill, index) => (
               <motion.div
                 key={skill.name}
                 initial={{ opacity: 0, x: -50 }}
@@ -267,11 +204,8 @@ export function Skills() {
                     {skill.level}%
                   </motion.span>
                 </div>
-
                 <div className="relative">
-                  {/* Background bar */}
                   <div className="w-full h-4 bg-taupe/30 rounded-full overflow-hidden">
-                    {/* Animated skill bar */}
                     <motion.div
                       initial={{ width: 0 }}
                       animate={{ width: `${skill.level}%` }}
@@ -282,7 +216,6 @@ export function Skills() {
                       }}
                       className="h-full bg-gradient-to-r from-navy to-taupe rounded-full relative overflow-hidden"
                     >
-                      {/* Animated shine effect */}
                       <motion.div
                         animate={{
                           x: ["-100%", "100%"],
@@ -296,8 +229,6 @@ export function Skills() {
                       />
                     </motion.div>
                   </div>
-
-                  {/* Floating indicator */}
                   <motion.div
                     initial={{ scale: 0, x: 0 }}
                     animate={{
@@ -312,15 +243,6 @@ export function Skills() {
               </motion.div>
             ))}
           </div>
-        </motion.div>
-
-        {/* Achievements */}
-        <motion.div
-          initial={{ opacity: 0, y: 100 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 100 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
-        >
-
         </motion.div>
       </div>
     </section>
