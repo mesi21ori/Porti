@@ -284,7 +284,7 @@ export function Projects() {
                       }}
                       className="absolute top-8 right-8 w-16 h-16 bg-cream/20 backdrop-blur-sm rounded-2xl border border-cream/30"
                     />
-                   
+
                     <motion.div
                       animate={{
                         y: [0, -15, 0],
@@ -456,22 +456,26 @@ export function Projects() {
               </div>
             </motion.div>
           </AnimatePresence>
-          <motion.button
-            onClick={prevProject}
-            whileHover={{ scale: 1.15, x: -8, rotateY: -15 }}
-            whileTap={{ scale: 0.9 }}
-            className="absolute left-4 top-3/4 transform -translate-y-1/2 w-16 h-16 bg-cream/90 backdrop-blur-sm border-2 border-taupe/40 rounded-full flex items-center justify-center text-navy hover:border-navy/60 transition-colors shadow-xl hover:shadow-2xl"
-          >
-            <ChevronLeft size={28} />
-          </motion.button>
-          <motion.button
-            onClick={nextProject}
-            whileHover={{ scale: 1.15, x: 8, rotateY: 15 }}
-            whileTap={{ scale: 0.9 }}
-            className="absolute right-4 top-3/4 transform -translate-y-1/2 w-16 h-16 bg-cream/90 backdrop-blur-sm border-2 border-taupe/40 rounded-full flex items-center justify-center text-navy hover:border-navy/60 transition-colors shadow-xl hover:shadow-2xl"
-          >
-            <ChevronRight size={28} />
-          </motion.button>
+          <div className="absolute bottom-[600px] sm:bottom-8 left-0 right-0 px-4 flex justify-between items-center z-10">
+            <motion.button
+              onClick={prevProject}
+              whileHover={{ scale: 1.15, x: -8, rotateY: -15 }}
+              whileTap={{ scale: 0.9 }}
+              className="w-12 h-12 sm:w-16  sm:h-16 bg-cream/90 backdrop-blur-sm border-2 border-taupe/40 rounded-full flex items-center justify-center text-navy hover:border-navy/60 transition-colors shadow-xl hover:shadow-2xl"
+            >
+              <ChevronLeft size={20} className="sm:size-7" />
+            </motion.button>
+
+            <motion.button
+              onClick={nextProject}
+              whileHover={{ scale: 1.15, x: 8, rotateY: 15 }}
+              whileTap={{ scale: 0.9 }}
+              className="w-12 h-12 sm:w-16 sm:h-16 bg-cream/90 backdrop-blur-sm border-2 border-taupe/40 rounded-full flex items-center justify-center text-navy hover:border-navy/60 transition-colors shadow-xl hover:shadow-2xl"
+            >
+              <ChevronRight size={20} className="sm:size-7" />
+            </motion.button>
+          </div>
+
         </div>
 
         <div className="flex justify-center gap-4 mb-16">
@@ -487,9 +491,8 @@ export function Projects() {
               className={`relative transition-all duration-300 ${index === currentIndex ? "w-12 h-4" : "w-4 h-4"}`}
             >
               <div
-                className={`w-full h-full rounded-full transition-all duration-300 ${
-                  index === currentIndex ? "bg-navy" : "bg-taupe/40 hover:bg-taupe/60"
-                }`}
+                className={`w-full h-full rounded-full transition-all duration-300 ${index === currentIndex ? "bg-navy" : "bg-taupe/40 hover:bg-taupe/60"
+                  }`}
               />
               {index === currentIndex && (
                 <motion.div
@@ -524,17 +527,16 @@ export function Projects() {
                 setCurrentIndex(index)
                 setIsAutoPlay(false)
               }}
-              className={`cursor-pointer bg-cream/60 backdrop-blur-sm p-6 rounded-2xl border-2 transition-all duration-500 group relative overflow-hidden ${
-                index === currentIndex ? "border-navy shadow-2xl scale-105" : "border-taupe/30 hover:border-taupe/60"
-              }`}
+              className={`cursor-pointer bg-cream/60 backdrop-blur-sm p-6 rounded-2xl border-2 transition-all duration-500 group relative overflow-hidden ${index === currentIndex ? "border-navy shadow-2xl scale-105" : "border-taupe/30 hover:border-taupe/60"
+                }`}
             >
               <motion.div
                 animate={
                   index === currentIndex
                     ? {
-                        opacity: [0, 0.1, 0],
-                        scale: [1, 1.2, 1],
-                      }
+                      opacity: [0, 0.1, 0],
+                      scale: [1, 1.2, 1],
+                    }
                     : {}
                 }
                 transition={{ duration: 3, repeat: Number.POSITIVE_INFINITY }}
